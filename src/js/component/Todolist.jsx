@@ -18,6 +18,17 @@ const Todolist = () => {
         setTasks(tasks.filter((task, index) => index !== indexToDelete))
     }
 
+    function todoListItem(tasks) {
+        let message;
+        if (tasks.length === 0) {
+            message = "No items added yet";
+        } else if (tasks.length === 1) {
+            message = "1 item left";
+        } else {
+            message = `${tasks.length} items left`;
+        }
+        return message
+    }
     return (
         <> 
             <div className="main-wrapper">
@@ -30,27 +41,25 @@ const Todolist = () => {
                             </li>    
                         </ul>
                         {tasks.length === 0 ? 
-                        <input type="text" onChange={(e)=>setNewTask(e.target.value)} onKeyDown={addTask} value={newTask} className="list ps-3 input-no-tasks input-task" maxlength="34" placeholder="No tasks, add your tasks (MAX 34 chars)"/> 
+                        <input type="text" onChange={(e)=>setNewTask(e.target.value)} onKeyDown={addTask} value={newTask} className="list ps-3 input-no-tasks input-task" maxLength="34" placeholder="No tasks, add your tasks (MAX 34 chars)"/> 
                         : 
-                        <input type="text" onChange={(e)=>setNewTask(e.target.value)} onKeyDown={addTask} value={newTask} className="list ps-3 input-task" maxlength="34" placeholder="Add your next task (MAX 34 chars)"/>}
+                        <input type="text" onChange={(e)=>setNewTask(e.target.value)} onKeyDown={addTask} value={newTask} className="list ps-3 input-task" maxLength="34" placeholder="Add your next task (MAX 34 chars)"/>}
                         <ul className="list">
-                            {tasks.map((task,index) =>
-                            <>       
+                            {tasks.map((task,index) =>    
                                 <li key={index} className="d-flex align-items-center list-task">
                                     <div className="lines-task"></div>
                                     {task}
                                     <i onClick={()=>deleteTask(index)} className="fa-solid fa-xmark btn fs-2"></i>
                                 </li>
-                            </>
                             )}
                             <li className="d-flex align-items-center items">
                                 <div className="lines-item"></div>
-                                {tasks.length === 1 ? `${tasks.length} item left` : `${tasks.length} items left`}
+                                {todoListItem(tasks)}
                             </li>
                         </ul>
                         <ul className="ul-secondary list">
-                        <li id="second-paper"></li>
-                        <li id="third-paper"></li>
+                            <li id="second-paper"></li>
+                            <li id="third-paper"></li>
                         </ul>
                     </div>
                 </div>
